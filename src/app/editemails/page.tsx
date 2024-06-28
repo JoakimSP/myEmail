@@ -1,4 +1,4 @@
-import CreateEmail from "../_components/emaillist/createEmail"
+import CreateEmail from "../_components/email/createEmail"
 
 type Props = {}
 
