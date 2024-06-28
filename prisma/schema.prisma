@@ -20,11 +20,21 @@ model Post {
 }
 
 model contacts {
-    id          Int      @id @default(autoincrement())
+    id          Int        @id @default(autoincrement())
     name        String
     email       String
-    address      String?
+    address     String?
     phoneNumber Int?
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    createdAt   DateTime   @default(now())
+    updatedAt   DateTime   @updatedAt
+    emailList   list? @relation(fields: [emailListId], references: [id])
+    emailListId Int?
+}
+
+model list {
+    id        Int        @id @default(autoincrement())
+    name      String
+    contacts  contacts[]
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
 }
