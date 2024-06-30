@@ -31,7 +31,8 @@ export const contactsRouter = createTRPCRouter({
             name: z.string().min(1),
             email: z.string().email({ message: "Invalid email address" }),
             address: z.string() || z.null(),
-            phoneNumber: z.number() || z.null()
+            phoneNumber: z.number() || z.null(),
+            emailList: z.number()
         }))
         .mutation(async ({ ctx, input }) => {
             return ctx.db.contacts.create({
@@ -39,7 +40,12 @@ export const contactsRouter = createTRPCRouter({
                     email: input.email,
                     name: input.name,
                     address: input.address,
-                    phoneNumber: input.phoneNumber
+                    phoneNumber: input.phoneNumber,
+                    emailList : {
+                        connect : {
+                            id : input.emailList
+                        }
+                    }
                 },
             });
         }),

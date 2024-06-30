@@ -1,22 +1,27 @@
 'use client'
 
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { api } from "~/trpc/react";
 
 
 
 type statusType = "successfully added new email" | "could not add new email" | "pending";
 
+interface Ilist {
+    id: number;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
 
-const CreateEmail: React.FC = () => {
+type createEmailProps = {
+    lists: Ilist[] | undefined
+}
+
+
+const CreateEmail: React.FC<createEmailProps> = ({ lists }) => {
     const [status, setStatus] = useState<statusType | null>(null)
 
-/*     const { data, isLoading } = api.lists.read.useQuery() */
-
-/*     if (isLoading) {
-        return <div>Loading...</div>
-    }
-    console.log(data) */
     const createEmail = api.contacts.create.useMutation({
         onSuccess: () => {
             setStatus('successfully added new email')
@@ -32,7 +37,6 @@ const CreateEmail: React.FC = () => {
         }
     })
 
-
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget)
@@ -42,7 +46,7 @@ const CreateEmail: React.FC = () => {
             email: formData.get('email') as string,
             address: formData.get('address') as string,
             phoneNumber: Number(formData.get('phonenumber')),
-            //TODO Add List option to connect email to list
+            emailList: Number(formData.get('listOption'))
         };
 
         createEmail.mutate(data)
@@ -57,13 +61,13 @@ const CreateEmail: React.FC = () => {
                 <input name='email' className="input input-bordered input-primary w-full max-w-xs" type="text" placeholder={'Email'} />
                 <input name='address' className="input input-bordered input-primary w-full max-w-xs" type="text" placeholder={'Adress'} />
                 <input name='phonenumber' className="input input-bordered input-primary w-full max-w-xs" type="text" placeholder={'Phone number'} />
-               {/*  <select name="listOption" className="select select-primary w-full max-w-xs">
-                    {data?.map((key, index) => {
+                <select name="listOption" className="select select-primary w-full max-w-xs">
+                    {lists?.map((key, index) => {
                         return (
-                            <option key={index}>{key.name}</option>
+                            <option key={index} value={key.id}>{key.name}</option>
                         )
                     })}
-                </select> */}
+                </select>
                 <button type='submit' className="btn btn-active btn-primary">Primary</button>
             </form>
 
