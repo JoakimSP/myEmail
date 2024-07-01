@@ -32,16 +32,29 @@ export const listsRouter = createTRPCRouter({
             });
         }),
 
-    read: publicProcedure.query(({ ctx }) => {
+    readAll: publicProcedure.query(({ ctx }) => {
         return ctx.db.list.findMany({
             orderBy: { createdAt: "asc" },
         });
     }),
 
-    delete: publicProcedure
+    getById: publicProcedure
         .input(z.number())
         .mutation(async ({ ctx, input }) => {
 
+            return ctx.db.list.findUnique({
+                where: {
+                    id: input.valueOf()
+                },
+                include : {
+                    contacts : true
+                }
+            });
+        }),
+
+    delete: publicProcedure
+        .input(z.number())
+        .mutation(async ({ ctx, input }) => {
             return ctx.db.list.delete({
                 where: {
                     id: input.valueOf()
