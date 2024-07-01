@@ -13,8 +13,9 @@ export default async function Page({ params }: Props) {
   const listData = await api.lists.getById(parseInt(params.listId))
 
   return (
-    <div className="flex flex-col items-center gap-3 p-4">
+    <>
       <h1 className='text-5xl font-extrabold dark:text-white'>{listData?.name}</h1>
+      <h4>Total email count: {listData?.contacts.length}</h4>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
@@ -46,6 +47,6 @@ export default async function Page({ params }: Props) {
           </tbody>
         </table>
       </div>
-    </div>
+    </>
   )
 }
