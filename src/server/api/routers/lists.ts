@@ -35,6 +35,7 @@ export const listsRouter = createTRPCRouter({
     readAll: publicProcedure.query(({ ctx }) => {
         return ctx.db.list.findMany({
             orderBy: { createdAt: "asc" },
+            include: { contacts: true }
         });
     }),
 
@@ -46,8 +47,8 @@ export const listsRouter = createTRPCRouter({
                 where: {
                     id: input.valueOf()
                 },
-                include : {
-                    contacts : true
+                include: {
+                    contacts: true
                 }
             });
         }),
