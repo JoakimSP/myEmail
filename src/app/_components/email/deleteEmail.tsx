@@ -19,7 +19,13 @@ export default function DeleteEmail({ id }: Props) {
     })
 
     const HandleDeleteEmail = (id: number) : void => {
+       const userConfirmed = window.confirm("Are you sure you want to delete this email? This cannot be reversed")
+       if(userConfirmed){
         deleteEmail.mutate(id)
+       }
+        else {
+            return
+        }
     }
     return (
         <div className="flex flex-col items-center gap-3 p-4">

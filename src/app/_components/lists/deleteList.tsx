@@ -19,7 +19,13 @@ export default function DeleteList({ id }: Props) {
 
 
   const deleteList = (id: number): void => {
-    deleteListRouter.mutate(id)
+    const userConfirmed = window.confirm("Are you sure you want to delete this email? This cannot be reversed")
+    if (userConfirmed) {
+      deleteListRouter.mutate(id)
+    }
+    else {
+      return
+    }
   }
   return (
     <button className="btn btn-square btn-outline" onClick={() => deleteList(id)}>
