@@ -4,6 +4,8 @@ import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import MenuBottom from "./_components/menu/menuBottom";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: "Create T3 App",
@@ -21,6 +23,7 @@ export default function RootLayout({
       <body data-theme="nord">
         <TRPCReactProvider>{children}</TRPCReactProvider>
         <MenuBottom/>
+        <ToastContainer/>
       </body>
     </html>
   );
