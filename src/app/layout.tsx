@@ -20,10 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body data-theme="nord">
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <MenuBottom/>
-        <ToastContainer/>
+      <body data-theme="nord" className="flex min-h-screen flex-col items-center justify-center">
+        <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16">
+          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <MenuBottom />
+          <ToastContainer />
+        </div>
       </body>
     </html>
   );
