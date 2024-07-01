@@ -9,7 +9,7 @@ export default async function page({ }: Props) {
     const lists = await api.lists.readAll()
 
     return (
-        <div>
+        <>
             <CreateList />
             <div className="overflow-x-auto">
                 <table className="table">
@@ -46,6 +46,6 @@ export default async function page({ }: Props) {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </>
     )
 }
