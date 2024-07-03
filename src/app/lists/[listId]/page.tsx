@@ -1,6 +1,7 @@
 //create slug page for viewing lists
 import { api } from "~/trpc/server"
 import DeleteEmail from "~/app/_components/email/deleteEmail"
+import { auth } from "@clerk/nextjs/server"
 
 
 
@@ -10,6 +11,10 @@ type Props = {
 
 
 export default async function Page({ params }: Props) {
+  const { sessionClaims } = auth()
+  if(sessionClaims?.metadata.role != "admin"){
+    return (<div>Not Authorized</div>)
+  }
   const listData = await api.lists.getById(parseInt(params.listId))
 
   return (

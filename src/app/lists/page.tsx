@@ -2,10 +2,15 @@ import CreateList from "../_components/lists/createList"
 import { api } from "~/trpc/server"
 import Link from "next/link"
 import DeleteList from "../_components/lists/deleteList"
+import { auth } from "@clerk/nextjs/server"
 
 type Props = {}
 
 export default async function page({ }: Props) {
+    const { sessionClaims } = auth()
+  if(sessionClaims?.metadata.role != "admin"){
+    return (<div>Not Authorized</div>)
+  }
     const lists = await api.lists.readAll()
 
     return (
