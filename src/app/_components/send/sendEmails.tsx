@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { sendEmail } from "~/utils/sendEmail"
+import { sendEmail } from "~/utils/sendEmail";
+
 interface Contact {
     id: number;
     name: string;
@@ -36,7 +37,7 @@ interface IenvData {
 }
 
 export default function SendEmails({ lists, serviceId, templateId, publicKey }: Props) {
-    const [select, setSelect] = useState<number | null | undefined>(null)
+    const [select, setSelect] = useState<number | null | undefined>(null);
     const [status, setStatus] = useState<boolean>(false);
     const envData: IenvData = {
         serviceId,
@@ -49,24 +50,27 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
         setSelect(selectedId);
     }
 
-    const handleSendEmail = () => {
+    const handleSendEmail = async () => {
         if (select == null) {
-            return toast.warn('Select a list before sending')
+            return toast.warn('Select a list before sending');
         }
-        const userConfirm = window.confirm('Are you sure you want to send the emails? This cannot be reversed')
+        const userConfirm = window.confirm('Are you sure you want to send the emails? This cannot be reversed');
         if (userConfirm) {
-            setStatus(true)
-            const filterdList = lists.filter((list) => list.id == select)
-            filterdList[0]?.contacts.forEach(async (item) => {
-                await sendEmail(item.email, { ...envData });
-                await new Promise(resolve => setTimeout(resolve, 3000));
-            })
-            setStatus(false)
-        }
-        else {
-            return
-        }
+            setStatus(true);
+            const filterdList = lists.filter((list) => list.id == select);
+            const contacts = filterdList[0]?.contacts;
 
+            if (contacts) {
+                for (const item of contacts) {
+                    await sendEmail(item.email, { ...envData });
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                }
+            }
+
+            setStatus(false);  // TODO Show confirmation upon success
+        } else {
+            return;
+        }
     }
 
     return (
@@ -75,19 +79,15 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
                 <h1 className='text-5xl font-extrabold dark:text-white text-center py-1'>Choose list</h1>
                 <select className="select select-primary w-full max-w-xs" onChange={handleChange}>
                     <option value={undefined}></option>
-                    {lists && lists.map((list) => {
-                        return (
-                            <option key={list.id} value={list.id}>{list.name}</option>
-                        )
-                    })}
+                    {lists?.map((list) => (
+                        <option key={list.id} value={list.id}>{list.name}</option>
+                    ))}
                 </select>
             </div>
             <div>
                 <button onClick={handleSendEmail} className="btn btn-wide bg-primary">SEND</button>
             </div>
-            {status == true ? <span className="loading loading-ring loading-lg"></span> : <></>}
+            {status ? <span className="loading loading-ring loading-lg"></span> : null}
         </div>
-    )
+    );
 }
-
-

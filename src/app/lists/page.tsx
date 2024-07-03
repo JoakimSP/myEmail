@@ -4,11 +4,10 @@ import Link from "next/link"
 import DeleteList from "../_components/lists/deleteList"
 import { auth } from "@clerk/nextjs/server"
 
-type Props = {}
 
-export default async function page({ }: Props) {
+export default async function page() {
     const { sessionClaims } = auth()
-  if(sessionClaims?.metadata.role != "admin"){
+  if(sessionClaims?.metadata?.role != "admin"){
     return (<div>Not Authorized</div>)
   }
     const lists = await api.lists.readAll()
@@ -29,7 +28,7 @@ export default async function page({ }: Props) {
                     </thead>
                     <tbody>
                         {/* row 1 */}
-                        {lists && lists.map((key, index) => {
+                        {lists?.map((key, index) => {
                             return (
                                 <tr className="bg-base-200" key={index}>
                                     <th>{key.id}</th>

@@ -12,7 +12,7 @@ export const contactsRouter = createTRPCRouter({
             phoneNumber: z.number() || z.undefined()
         }))
         .mutation(async ({ ctx, input }) => {
-
+            
             return ctx.db.contacts.update({
                 where: {
                     id: input.id

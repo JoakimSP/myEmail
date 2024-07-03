@@ -12,7 +12,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const { sessionClaims } = auth()
-  if(sessionClaims?.metadata.role != "admin"){
+  if(sessionClaims?.metadata?.role != "admin"){
     return (<div>Not Authorized</div>)
   }
   const listData = await api.lists.getById(parseInt(params.listId))
@@ -35,8 +35,7 @@ export default async function Page({ params }: Props) {
           <tbody>
             {/* row 1 */}
 
-            {listData?.contacts &&
-              listData.contacts.map((contact) => {
+            {listData?.contacts?.map((contact) => {
                 return (
                   <tr key={contact.id}>
                     <th>{contact.id}</th>

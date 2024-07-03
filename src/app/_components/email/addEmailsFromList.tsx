@@ -3,7 +3,6 @@
 import { toast } from "react-toastify"
 import { api } from "~/trpc/react"
 import readXlsxFile from 'read-excel-file'
-import { useState } from "react"
 
 interface Ilist {
   id: number;
@@ -17,7 +16,6 @@ type createEmailProps = {
 }
 
 const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
-  const [emails, setEmails] = useState<string[]>([]);
 
   const createEmail = api.contacts.create.useMutation({
     onSuccess: () => {
@@ -47,7 +45,6 @@ const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
           }
         });
       });
-      setEmails(emailArray);
 
       let loopCounter = 0
       emailArray.forEach((email, index, array) => {

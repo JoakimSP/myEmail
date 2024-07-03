@@ -1,8 +1,8 @@
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
-type Props = {}
 
-export default function MenuTop({ }: Props) {
+
+export default function MenuTop() {
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">

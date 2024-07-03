@@ -3,9 +3,9 @@ import AddEmailsFromList from "../_components/email/addEmailsFromList"
 import { api } from "~/trpc/server"
 import { auth } from "@clerk/nextjs/server"
 
-type Props = {}
 
-export default async function Page({ }: Props) {
+
+export default async function Page() {
     const { sessionClaims } = auth()
   if(sessionClaims?.metadata.role != "admin"){
     return (<div>Not Authorized</div>)

@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.2.0",
+    "@emailjs/browser": "^4.3.3",
+    "@eslint/config-array": "^0.17.0",
+    "@eslint/object-schema": "^2.1.4",
     "@prisma/client": "^5.14.0",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@tanstack/react-query": "^5.39.0",
@@ -24,11 +27,13 @@
     "@trpc/server": "next",
     "emailjs-com": "^3.2.0",
     "geist": "^1.3.0",
+    "glob": "^10.4.2",
     "next": "^14.2.1",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-toastify": "^10.0.5",
     "read-excel-file": "^5.8.3",
+    "rimraf": "^5.0.7",
     "server-only": "^0.0.1",
     "superjson": "^2.2.1",
     "zod": "^3.23.3"

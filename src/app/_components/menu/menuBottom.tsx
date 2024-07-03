@@ -3,9 +3,9 @@
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 
-type Props = {}
 
-export default function MenuBottom({ }: Props) {
+
+export default function MenuBottom() {
     const pathName = usePathname()
 
     return (

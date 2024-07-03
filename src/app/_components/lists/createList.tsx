@@ -4,7 +4,7 @@ import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 
-type props = Object
+
 
 const CreateList: React.FC = () => {
     const router = useRouter();

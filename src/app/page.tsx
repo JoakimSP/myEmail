@@ -5,7 +5,7 @@ import { auth } from '@clerk/nextjs/server';
 
 export default async function Home() {
   const { sessionClaims } = auth()
-  if(sessionClaims?.metadata.role != "admin"){
+  if(sessionClaims?.metadata?.role != "admin"){
     return (<div>Not Authorized</div>)
   }
   const lists = await api.lists.readAll()
