@@ -14,6 +14,7 @@ export const env = createEnv({
     EMAILJS_PUBLIC_KEY: z.string(),
     EMAILJS_TEMPLATE_ID: z.string(),
     EMAILJS_SERVICE_ID: z.string(),
+    CLERK_SECRET_KEY : z.string()
   },
 
   /**
@@ -22,7 +23,7 @@ export const env = createEnv({
    * `NEXT_PUBLIC_`.
    */
   client: {
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
   },
 
   /**
@@ -34,7 +35,9 @@ export const env = createEnv({
     NODE_ENV: process.env.NODE_ENV,
     EMAILJS_PUBLIC_KEY: process.env.EMAILJS_PUBLIC_KEY,
     EMAILJS_TEMPLATE_ID: process.env.EMAILJS_TEMPLATE_ID,
-    EMAILJS_SERVICE_ID: process.env.EMAILJS_SERVICE_ID
+    EMAILJS_SERVICE_ID: process.env.EMAILJS_SERVICE_ID,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
