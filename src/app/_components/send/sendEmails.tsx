@@ -65,9 +65,9 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
                     await sendEmail(item.email, { ...envData });
                     await new Promise(resolve => setTimeout(resolve, 3000));
                 }
+                toast.success("Successfully sent all emails")
+                setStatus(false);
             }
-
-            setStatus(false);  // TODO Show confirmation upon success
         } else {
             return;
         }
@@ -76,6 +76,7 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
     return (
         <div className="container flex flex-col items-center justify-center gap-11 px-4 py-16 ">
             <div>
+                <div> {status && <span className="loading loading-ring loading-lg"></span>}</div>
                 <h1 className='text-5xl font-extrabold dark:text-white text-center py-1'>Choose list</h1>
                 <select className="select select-primary w-full max-w-xs" onChange={handleChange}>
                     <option value={undefined}></option>
@@ -87,7 +88,7 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
             <div>
                 <button onClick={handleSendEmail} className="btn btn-wide bg-primary">SEND</button>
             </div>
-            {status ? <span className="loading loading-ring loading-lg"></span> : null}
+
         </div>
     );
 }
