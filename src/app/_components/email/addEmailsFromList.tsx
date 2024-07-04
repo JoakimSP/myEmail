@@ -17,9 +17,9 @@ type createEmailProps = {
 
 const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
 
-  const createEmail = api.contacts.create.useMutation({
+  const createEmail = api.contacts.createMany.useMutation({
     onSuccess: () => {
-      console.log("successfully added new email")
+      toast.success("successfully added new email")
     },
     onError: () => {
       toast.error("Could not add new email")
@@ -31,36 +31,27 @@ const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
     const form = e.currentTarget;
     const input = form.elements.namedItem('fileInput') as HTMLInputElement;
     const select = form.elements.namedItem('listOption') as HTMLSelectElement;
-    const file = input?.files?.[0]; 
-    const selectedList = Number(select.value); 
+    const file = input?.files?.[0];
+    const selectedList = Number(select.value);
 
     if (file) {
-      console.log(file);
       const rows = await readXlsxFile(file);
-      const emailArray: string[] = [];
+      const emailArray: { name: string, email: string, address: string, phoneNumber: number, emailList: number }[] = [];
       rows.forEach(row => {
         row.forEach(cell => {
-          if (typeof cell === 'string' && cell.includes('@')) {
-            emailArray.push(cell); // Add cell to email array if it contains '@'
+          if (typeof cell === 'string' && cell.includes('@')) { // Add cell to email array if it contains '@'
+            emailArray.push({
+              name: "Unknown",
+              email: cell,
+              address: "",
+              phoneNumber: 0,
+              emailList: selectedList
+            }); 
           }
         });
       });
 
-      let loopCounter = 0
-      emailArray.forEach((email, index, array) => {
-        const data = {
-          name: "Unknown", 
-          email: email,
-          address: "", 
-          phoneNumber: 0, 
-          emailList: selectedList 
-        };
-        createEmail.mutate(data)
-        loopCounter++
-        if (loopCounter === array.length){
-          toast.success("successfully added new email")
-        }
-      })
+      createEmail.mutate(emailArray);
     }
   }
 

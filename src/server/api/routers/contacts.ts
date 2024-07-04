@@ -49,6 +49,26 @@ export const contactsRouter = createTRPCRouter({
                 },
             });
         }),
+        createMany: publicProcedure
+        .input(z.array(z.object({
+            name: z.string().min(1),
+            email: z.string().email({ message: "Invalid email address" }),
+            address: z.string().optional(),
+            phoneNumber: z.number().optional(),
+            emailList: z.number()
+        })))
+        .mutation(async ({ ctx, input }) => {
+            return ctx.db.contacts.createMany({
+                data: input.map(item => ({
+                    email: item.email,
+                    name: item.name,
+                    address: item.address,
+                    phoneNumber: item.phoneNumber,
+                    emailListId: item.emailList
+                })),
+                skipDuplicates: true
+            });
+        }),
 
     read: publicProcedure.query(({ ctx }) => {
         return ctx.db.contacts.findMany({
