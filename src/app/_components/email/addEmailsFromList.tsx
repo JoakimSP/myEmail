@@ -3,6 +3,7 @@
 import { toast } from "react-toastify"
 import { api } from "~/trpc/react"
 import readXlsxFile from 'read-excel-file'
+import { useRouter } from "next/navigation";
 
 interface Ilist {
   id: string;
@@ -16,10 +17,11 @@ type createEmailProps = {
 }
 
 const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
-
+  const router = useRouter();
   const createEmail = api.contacts.createMany.useMutation({
     onSuccess: () => {
       toast.success("successfully added new email")
+      router.refresh()
     },
     onError: () => {
       toast.error("Could not add new email")
