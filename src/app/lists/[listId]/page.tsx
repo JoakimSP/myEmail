@@ -1,7 +1,7 @@
 //create slug page for viewing lists
 import { api } from "~/trpc/server"
-import DeleteEmail from "~/app/_components/email/deleteEmail"
 import { auth } from "@clerk/nextjs/server"
+import ListDetailUI from "~/app/_components/lists/listDetailUI"
 
 
 
@@ -9,48 +9,30 @@ type Props = {
   params: { listId: string }
 }
 
+interface Icontacts {
+  id: string;
+  name: string;
+  email: string;
+  address: string | null;
+  phoneNumber: number | null;
+  createdAt: Date;
+  updatedAt: Date;
+  emailListId: string | null;
+}
+
+type contactsType = Icontacts[] | undefined
 
 export default async function Page({ params }: Props) {
   const { sessionClaims } = auth()
-  if(sessionClaims?.metadata?.role != "admin"){
+  if (sessionClaims?.metadata?.role != "admin") {
     return (<div>Not Authorized</div>)
   }
   const listData = await api.lists.getById(params.listId.toString())
+  const contacts: contactsType = listData?.contacts
+
+
 
   return (
-    <>
-      <h1 className='text-5xl font-extrabold dark:text-white'>{listData?.name}</h1>
-      <h4>Total email count: {listData?.contacts.length}</h4>
-      <div className="overflow-x-auto">
-        <table className="table">
-          {/* head */}
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* row 1 */}
-
-            {listData?.contacts?.map((contact, index) => {
-                return (
-                  <tr key={contact.id}>
-                    <th>{index}</th>
-                    <td>{contact.name}</td>
-                    <td>{contact.email}</td>
-                    <td>
-                      <DeleteEmail id={contact.id}/>
-                    </td>
-                  </tr>
-                )
-              })
-            }
-          </tbody>
-        </table>
-      </div>
-    </>
+    <ListDetailUI contacts={contacts} listName={listData?.name} listCount={listData?.contacts.length}/>
   )
 }
