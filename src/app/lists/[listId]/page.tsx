@@ -35,10 +35,10 @@ export default async function Page({ params }: Props) {
           <tbody>
             {/* row 1 */}
 
-            {listData?.contacts?.map((contact) => {
+            {listData?.contacts?.map((contact, index) => {
                 return (
                   <tr key={contact.id}>
-                    <th>{contact.id}</th>
+                    <th>{index}</th>
                     <td>{contact.name}</td>
                     <td>{contact.email}</td>
                     <td>

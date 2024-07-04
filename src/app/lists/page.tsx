@@ -31,7 +31,7 @@ export default async function page() {
                         {lists?.map((key, index) => {
                             return (
                                 <tr className="bg-base-200" key={index}>
-                                    <th>{key.id}</th>
+                                    <th>{index}</th>
                                     <td>{key.name}</td>
                                     <td>
                                         <DeleteList id={key.id} />
