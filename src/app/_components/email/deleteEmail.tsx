@@ -4,7 +4,7 @@ import { api } from "~/trpc/react"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 
-type Props = { id: number }
+type Props = { id: string }
 
 export default function DeleteEmail({ id }: Props) {
     const router = useRouter()
@@ -18,7 +18,7 @@ export default function DeleteEmail({ id }: Props) {
         }
     })
 
-    const HandleDeleteEmail = (id: number) : void => {
+    const HandleDeleteEmail = (id: string) : void => {
        const userConfirmed = window.confirm("Are you sure you want to delete this email? This cannot be reversed")
        if(userConfirmed){
         deleteEmail.mutate(id)

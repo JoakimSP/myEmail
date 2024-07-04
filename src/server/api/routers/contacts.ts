@@ -5,7 +5,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const contactsRouter = createTRPCRouter({
     update: publicProcedure
         .input(z.object({
-            id: z.number(),
+            id: z.string(),
             name: z.string().min(1) || z.undefined(),
             email: z.string().email({ message: "Invalid email address" }),
             address: z.string() || z.undefined(),
@@ -32,7 +32,7 @@ export const contactsRouter = createTRPCRouter({
             email: z.string().email({ message: "Invalid email address" }),
             address: z.string() || z.null(),
             phoneNumber: z.number() || z.null(),
-            emailList: z.number()
+            emailList: z.string()
         }))
         .mutation(async ({ ctx, input }) => {
             return ctx.db.contacts.create({
@@ -55,7 +55,7 @@ export const contactsRouter = createTRPCRouter({
             email: z.string().email({ message: "Invalid email address" }),
             address: z.string().optional(),
             phoneNumber: z.number().optional(),
-            emailList: z.number()
+            emailList: z.string()
         })))
         .mutation(async ({ ctx, input }) => {
             return ctx.db.contacts.createMany({
@@ -77,7 +77,7 @@ export const contactsRouter = createTRPCRouter({
     }),
 
     delete: publicProcedure
-        .input(z.number())
+        .input(z.string())
         .mutation(async ({ ctx, input }) => {
 
             return ctx.db.contacts.delete({

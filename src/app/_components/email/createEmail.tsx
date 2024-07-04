@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from "next/navigation";
 
 interface Ilist {
-    id: number;
+    id: string;
     name: string;
     createdAt: Date;
     updatedAt: Date;
@@ -38,7 +38,7 @@ const CreateEmail: React.FC<createEmailProps> = ({ lists }) => {
             email: formData.get('email') as string,
             address: formData.get('address') as string,
             phoneNumber: Number(formData.get('phonenumber')),
-            emailList: Number(formData.get('listOption'))
+            emailList: formData.get('listOption') as string
         };
 
         createEmail.mutate(data)

@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
   if(sessionClaims?.metadata?.role != "admin"){
     return (<div>Not Authorized</div>)
   }
-  const listData = await api.lists.getById(parseInt(params.listId))
+  const listData = await api.lists.getById(params.listId.toString())
 
   return (
     <>

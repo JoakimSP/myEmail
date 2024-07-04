@@ -5,18 +5,18 @@ import { toast } from "react-toastify";
 import { sendEmail } from "~/utils/sendEmail";
 
 interface Contact {
-    id: number;
+    id: string;
     name: string;
     email: string;
     address: string | null;
     phoneNumber: number | null;
     createdAt: Date;
     updatedAt: Date;
-    emailListId: number | null;
+    emailListId: string | null;
 }
 
 interface List {
-    id: number;
+    id: string;
     name: string;
     createdAt: Date;
     updatedAt: Date;
@@ -37,7 +37,7 @@ interface IenvData {
 }
 
 export default function SendEmails({ lists, serviceId, templateId, publicKey }: Props) {
-    const [select, setSelect] = useState<number | null | undefined>(null);
+    const [select, setSelect] = useState<string | null | undefined>(null);
     const [status, setStatus] = useState<boolean>(false);
     const envData: IenvData = {
         serviceId,
@@ -46,7 +46,7 @@ export default function SendEmails({ lists, serviceId, templateId, publicKey }: 
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedId = Number(e.target.value);
+        const selectedId = e.target.value.toString();
         setSelect(selectedId);
     }
 

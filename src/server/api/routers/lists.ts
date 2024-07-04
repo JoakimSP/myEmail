@@ -5,7 +5,7 @@ import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 export const listsRouter = createTRPCRouter({
     update: publicProcedure
         .input(z.object({
-            id: z.number(),
+            id: z.string(),
             name: z.string().min(1) || z.undefined(),
         }))
         .mutation(async ({ ctx, input }) => {
@@ -40,7 +40,7 @@ export const listsRouter = createTRPCRouter({
     }),
 
     getById: publicProcedure
-        .input(z.number())
+        .input(z.string())
         .mutation(async ({ ctx, input }) => {
 
             return ctx.db.list.findUnique({
@@ -54,7 +54,7 @@ export const listsRouter = createTRPCRouter({
         }),
 
     delete: publicProcedure
-        .input(z.number())
+        .input(z.string())
         .mutation(async ({ ctx, input }) => {
             return ctx.db.list.delete({
                 where: {

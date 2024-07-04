@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation"
 import { api } from "~/trpc/react"
 import { toast } from "react-toastify"
 
-type Props = { id: number }
+type Props = { id: string }
 
 export default function DeleteList({ id }: Props) {
   const router = useRouter()
@@ -18,7 +18,7 @@ export default function DeleteList({ id }: Props) {
   })
 
 
-  const deleteList = (id: number): void => {
+  const deleteList = (id: string): void => {
     const userConfirmed = window.confirm("Are you sure you want to delete this email? This cannot be reversed")
     if (userConfirmed) {
       deleteListRouter.mutate(id)

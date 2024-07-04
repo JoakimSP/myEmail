@@ -5,7 +5,7 @@ import { api } from "~/trpc/react"
 import readXlsxFile from 'read-excel-file'
 
 interface Ilist {
-  id: number;
+  id: string;
   name: string;
   createdAt: Date;
   updatedAt: Date;
@@ -32,11 +32,11 @@ const AddEmailsFromList: React.FC<createEmailProps> = ({ lists }) => {
     const input = form.elements.namedItem('fileInput') as HTMLInputElement;
     const select = form.elements.namedItem('listOption') as HTMLSelectElement;
     const file = input?.files?.[0];
-    const selectedList = Number(select.value);
+    const selectedList = select.value.toString();
 
     if (file) {
       const rows = await readXlsxFile(file);
-      const emailArray: { name: string, email: string, address: string, phoneNumber: number, emailList: number }[] = [];
+      const emailArray: { name: string, email: string, address: string, phoneNumber: number, emailList: string }[] = [];
       rows.forEach(row => {
         row.forEach(cell => {
           if (typeof cell === 'string' && cell.includes('@')) { // Add cell to email array if it contains '@'
