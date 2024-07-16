@@ -1,29 +1,63 @@
-# Create T3 App
+# My Email
+A Simple UI for Sending Emails via EmailJS API
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This project provides a user-friendly interface connected to the EmailJS API, enabling you to send emails to your email lists. These lists can be conveniently added through Excel files.
 
-## What's next? How do I make an app with this?
+## Steps to Get Started:
+Create an Account:
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Register at emailjs.com.
+Set Up a Service and Template:
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Follow the documentation on EmailJS to create a service and email template.
+Download the Project:
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Clone or download the project repository.
+Configure Environment Variables:
 
-## Learn More
+In the .env file, add the following:
+env
+Kopiera kod
+EMAILJS_PUBLIC_KEY="[your public key]"
+EMAILJS_TEMPLATE_ID="[your template ID]"
+EMAILJS_SERVICE_ID="[your service ID]"
+Create a List:
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+Generate an email list.
+Add Emails:
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+Populate the email list manually or by importing an Excel file.
+Select List and Send:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Choose your email list and initiate the email sending process.
+Sending Process:
 
-## How do I deploy this?
+Emails are sent every 3 seconds. Ensure the process is complete before closing the application.
+Running the Project Locally
+You can run the project locally on your machine without the need for a hosting company. Follow these steps:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+Install Dependencies:
+
+Navigate to the project directory and run:
+bash
+Kopiera kod
+npm install
+Start the Project:
+
+Start the project by running:
+bash
+Kopiera kod
+npm start
+Access the Application:
+
+Open your web browser and go to:
+arduino
+Kopiera kod
+http://localhost:3000
+This project streamlines the process of sending emails, making it efficient and easy to manage your email campaigns.
+
+
+
+
+
+
